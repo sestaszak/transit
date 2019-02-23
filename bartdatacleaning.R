@@ -48,7 +48,7 @@ rm(list=c("dhse_day", "dhse_hr", "dhse_month", "dhse_pair", "dhse_dayend", "dhse
 # dhsecse<-merge(x=dhsec_st, y=stname, by.x="end", by.y="stcode4", suffixes=c("", ".end"))
 
 
-test<-xtabs(count~start+end, data=dhse[which(dhse$start!="WSPR"), ])
+# test<-xtabs(count~start+end, data=dhse[which(dhse$start!="WSPR"), ])
 
 #plot station on x time on y with counts for time + end station pair counts
 #want size of bubble to be area not radius... so math

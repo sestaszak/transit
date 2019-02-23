@@ -15,13 +15,18 @@ m1<-merge(x=dhse, y=stname[,c("stcode4", "cityname")], by.x="start", by.y="stcod
 m2<-merge(x=m1, y=stname[,c("stcode4", "cityname")], by.x = "end", by.y = "stcode4", 
           suffixes=c("", ".end"), all.x = TRUE)
 
+
+amcommute<-subset(m2, m2$hour>4 & m2$hour<12 & m2$tripday%in%c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday"))
+amcomtab<-xtabs(count~cityname+cityname.end, data=amcommute)
+amcomcount<-as.data.frame(amcomtab)
+
 test<-xtabs(count~cityname+cityname.end, data=m2[which(m2$start!="WSPR"), ])
 
 test2<-as.data.frame(test)
 #basic premade chord diagram
-chordDiagram(test2[test2$Freq>10000,], transparency = 0.5)
+chordDiagram(test2[test2$Freq>10000,], transparency = 0.5, directional = 1)
 # chordDiagram(test2, transparency=0.5)
-
+chordDiagram(amcomcount, transparency = 0.5)
 
 #change labels on diagram
 ##example to do that from https://jokergoo.github.io/circlize_book/book/advanced-usage-of-chorddiagram.html#customize-sector-labels
